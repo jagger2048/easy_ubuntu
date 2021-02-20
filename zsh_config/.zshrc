@@ -85,11 +85,10 @@ export PATH=/home/jagger/anaconda3/bin/:$PATH
 # export XTENSA_VER=RI-2020.4-linux
 # export PATH=/home/jagger/xtensa/${XTENSA_VER}/XtensaTools/bin:$PATH
 
-# # export XTENSA_CORE=dmx1aRG11 # Knowles
+## xtensa RG11
+## export XTENSA_CORE=dmx1aRG11
 # export XTENSA_CORE=dmx1aRI04
-# # Knowles
-# export XTENSA_SYSTEM=/home/jagger/${XTENSA_VER}/${XTENSA_CORE}/config # Knowles RG11
-# # export /home/jagger/dsp-toolchain/RI04/CoreConfigs/RI-2020.4-linux/dmx1aRI04/config # Knowles RI04
+# export XTENSA_SYSTEM=/home/jagger/${XTENSA_VER}/${XTENSA_CORE}/config 
 # # <<< xtensa xplore <<<
 
 ## wsl nameserver
