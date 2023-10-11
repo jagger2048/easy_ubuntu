@@ -1,16 +1,11 @@
-
 ### Added by Zinit's installer
-if [[ ! -f $HOME/.zinit/bin/zinit.zsh ]]; then
-    print -P "%F{33}▓▒░ %F{220}Installing %F{33}DHARMA%F{220} Initiative Plugin Manager (%F{33}zdharma/zinit%F{220})…%f"
-    command mkdir -p "$HOME/.zinit" && command chmod g-rwX "$HOME/.zinit"
-    command git clone https://github.com/zdharma/zinit "$HOME/.zinit/bin" && \
-        print -P "%F{33}▓▒░ %F{34}Installation successful.%f%b" || \
-        print -P "%F{160}▓▒░ The clone has failed.%f%b"
-fi
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+[ ! -d $ZINIT_HOME ] && mkdir -p "$(dirname $ZINIT_HOME)"
+[ ! -d $ZINIT_HOME/.git ] && git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+source "${ZINIT_HOME}/zinit.zsh"
 
-source "$HOME/.zinit/bin/zinit.zsh"
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
+# autoload -Uz _zinit
+# (( ${+_comps} )) && _comps[zinit]=_zinit
 ### End of Zinit's installer chunk
 
 ### Zinit config start
@@ -51,8 +46,10 @@ zinit snippet OMZL::git.zsh
 # Load Git plugin from OMZ
 zinit snippet OMZP::git
 zinit cdclear -q # <- forget completions provided up to this moment
-
 setopt promptsubst
+
+# Load SVN plugin from OMZ to ignore "zsh: command not found: svn_prompt_info" error from ys theme
+zinit snippet OMZP::svn
 
 # Load theme from OMZ
 zinit snippet OMZT::ys
@@ -62,21 +59,21 @@ zinit snippet OMZT::ys
 ###############################################################
 # >>> conda initialize >>>
 # !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/jagger/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+__conda_setup="$('/home/jagger/miniconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
 if [ $? -eq 0 ]; then
     eval "$__conda_setup"
 else
-    if [ -f "/home/jagger/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/jagger/anaconda3/etc/profile.d/conda.sh"
+    if [ -f "/home/jagger/miniconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/jagger/miniconda3/etc/profile.d/conda.sh"
     else
-        export PATH="/home/jagger/anaconda3/bin:$PATH"
+        export PATH="/home/jagger/miniconda3/bin:$PATH"
     fi
 fi
 unset __conda_setup
 # <<< conda initialize <<<
 
-# for anaconda3 
-export PATH=/home/jagger/anaconda3/bin/:$PATH
+# for miniconda3 
+export PATH=/home/jagger/miniconda3/bin/:$PATH
 
 # # <<< xtensa xplore <<<
 
@@ -93,5 +90,3 @@ export PATH=/home/jagger/anaconda3/bin/:$PATH
 
 ## wsl nameserver
 # echo "nameserver 8.8.8.8" > /etc/resolv.conf
-
-
